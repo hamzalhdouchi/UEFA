@@ -12,18 +12,13 @@ const useMatchStore = create((set, get) => ({
     set({ loading: true, error: null });
     
     try {
-      const response = await axios.get('https://api.sofascore.com/api/v1/sport/football/scheduled-events/2025-04-15', {
-        headers: {
-          'User-Agent': 'Mozilla/5.0',
-          'Accept': 'application/json'
-        }
-      });
+      const response = await axios.get("https://api.sofascore.com/api/v1/sport/football/scheduled-events/2025-04-16");
       
-      // Filter for champions league matches
       const championsLeagueMatches = response.data.events.filter(
-        event => event.tournament.name.includes('Champions League') && 
-                event.roundInfo?.round === 'Quarter-finals'
+        event => event.tournament.name.includes('UEFA Champions League, Knockout Phase') && 
+                event.roundInfo?.name === 'Quarterfinals'
       );
+      console.log(championsLeagueMatches);
       
       set({ 
         matches: championsLeagueMatches,
